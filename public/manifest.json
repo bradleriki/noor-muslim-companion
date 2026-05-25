@@ -1,0 +1,9 @@
+{
+  "short_name": "Noor",
+  "name": "Noor — Muslim Companion",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0d2818",
+  "background_color": "#f4ede0"
+}

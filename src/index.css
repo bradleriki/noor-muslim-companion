@@ -1,0 +1,809 @@
+:root {
+  --cream: #f4ede0;
+  --cream-deep: #ebe0cb;
+  --paper: #faf6ed;
+  --ink: #1a1d1a;
+  --ink-soft: #4a4d47;
+  --ink-faint: #8a8a82;
+  --emerald: #0d3d2e;
+  --emerald-deep: #082b20;
+  --emerald-light: #1c5f47;
+  --gold: #b08d47;
+  --gold-deep: #8a6d33;
+  --gold-light: #d4b87a;
+  --rule: rgba(26, 29, 26, 0.12);
+  --rule-strong: rgba(26, 29, 26, 0.25);
+  --shadow-card: 0 1px 0 rgba(26, 29, 26, 0.04), 0 8px 24px -12px rgba(26, 29, 26, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+input, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--paper);
+  position: relative;
+  box-shadow: 0 0 60px -20px rgba(0,0,0,0.08);
+}
+
+/* ===================== Decorative geometry ===================== */
+
+.geo-corner {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* ===================== Header ===================== */
+
+.hdr {
+  padding: 28px 24px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.hdr-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  color: var(--emerald);
+  line-height: 1;
+}
+
+.hdr-brand .dot {
+  color: var(--gold);
+  margin: 0 6px;
+}
+
+.hdr-sub {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 6px;
+}
+
+.hdr-date {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.hdr-date .hijri {
+  font-family: 'Amiri', serif;
+  color: var(--emerald);
+  margin-left: 8px;
+}
+
+/* ===================== Content area ===================== */
+
+.content {
+  flex: 1;
+  padding: 24px 22px 100px;
+  overflow-y: auto;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ===================== Prayer card ===================== */
+
+.prayer-now {
+  background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-deep) 100%);
+  color: var(--cream);
+  border-radius: 4px;
+  padding: 26px 24px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.prayer-now::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(212, 184, 122, 0.15) 0%, transparent 70%);
+}
+
+.prayer-now-label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-weight: 500;
+}
+
+.prayer-now-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 38px;
+  margin-top: 4px;
+  line-height: 1.1;
+}
+
+.prayer-now-arabic {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--gold-light);
+  margin-top: 2px;
+  direction: rtl;
+}
+
+.prayer-now-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 400;
+  margin-top: 16px;
+  letter-spacing: 0.02em;
+}
+
+.prayer-now-countdown {
+  font-size: 13px;
+  color: rgba(244, 237, 224, 0.7);
+  margin-top: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* ===================== Prayer list ===================== */
+
+.prayer-list {
+  background: var(--cream);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.prayer-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--rule);
+  gap: 14px;
+}
+
+.prayer-row:last-child {
+  border-bottom: none;
+}
+
+.prayer-row.active {
+  background: rgba(176, 141, 71, 0.08);
+}
+
+.prayer-row-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--gold);
+  font-style: italic;
+}
+
+.prayer-row-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.prayer-row-arabic {
+  font-family: 'Amiri', serif;
+  font-size: 14px;
+  color: var(--emerald-light);
+  margin-top: -2px;
+}
+
+.prayer-row-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.prayer-row.active .prayer-row-time {
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+
+/* ===================== Daily verse ===================== */
+
+.verse-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 26px 24px;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.verse-arabic {
+  font-family: 'Amiri', serif;
+  font-size: 26px;
+  line-height: 1.9;
+  color: var(--emerald);
+  text-align: center;
+  direction: rtl;
+  margin-bottom: 16px;
+}
+
+.verse-translation {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-style: italic;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.verse-ref {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-top: 16px;
+  font-weight: 500;
+}
+
+/* ===================== Quick actions ===================== */
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.action-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 20px 18px;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 110px;
+}
+
+.action-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.action-card-icon {
+  color: var(--emerald);
+  width: 28px;
+  height: 28px;
+}
+
+.action-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.action-card-sub {
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* ===================== Bottom nav ===================== */
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 720px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: var(--paper);
+  border-top: 1px solid var(--rule-strong);
+  padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+  z-index: 10;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  color: var(--ink-faint);
+  transition: color 0.2s;
+}
+
+.nav-btn.active {
+  color: var(--emerald);
+}
+
+.nav-btn-label {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ===================== Qibla ===================== */
+
+.qibla-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.qibla-compass {
+  width: min(320px, 80vw);
+  height: min(320px, 80vw);
+  position: relative;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, var(--paper) 0%, var(--cream-deep) 100%);
+  box-shadow: var(--shadow-card), inset 0 0 0 1px var(--rule-strong);
+  margin-bottom: 28px;
+}
+
+.compass-ring {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+}
+
+.compass-needle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s ease-out;
+}
+
+.compass-needle-arrow {
+  width: 4px;
+  height: 45%;
+  background: linear-gradient(to top, transparent 0%, var(--gold) 50%, var(--emerald) 100%);
+  transform-origin: bottom center;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.compass-needle-arrow::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 14px solid var(--emerald);
+}
+
+.compass-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+.compass-label {
+  position: absolute;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.compass-label.n { top: 18px; left: 50%; transform: translateX(-50%); color: var(--emerald); font-size: 18px; }
+.compass-label.s { bottom: 18px; left: 50%; transform: translateX(-50%); }
+.compass-label.e { right: 18px; top: 50%; transform: translateY(-50%); }
+.compass-label.w { left: 18px; top: 50%; transform: translateY(-50%); }
+
+.qibla-info {
+  text-align: center;
+}
+
+.qibla-bearing {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px;
+  color: var(--emerald);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.qibla-bearing-deg {
+  font-size: 28px;
+  color: var(--gold);
+}
+
+.qibla-instr {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* ===================== Quran ===================== */
+
+.surah-search {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.surah-search:focus {
+  border-color: var(--gold);
+}
+
+.surah-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.surah-item {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--rule);
+  width: 100%;
+  text-align: left;
+}
+
+.surah-num {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold);
+  transform: rotate(45deg);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--gold-deep);
+  font-size: 14px;
+}
+
+.surah-num span {
+  transform: rotate(-45deg);
+}
+
+.surah-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.surah-meta {
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.surah-arabic {
+  font-family: 'Amiri', serif;
+  font-size: 22px;
+  color: var(--emerald);
+  direction: rtl;
+}
+
+/* ===================== Scanner ===================== */
+
+.scanner-stage {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.scanner-frame {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1;
+  margin: 0 auto 28px;
+  border: 1px dashed var(--gold);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--cream);
+}
+
+.scanner-frame-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--emerald);
+}
+
+.scanner-frame-corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.scanner-frame-corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.scanner-frame-corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+.scanner-frame-corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.btn-primary {
+  background: var(--emerald);
+  color: var(--cream);
+  padding: 14px 32px;
+  border-radius: 2px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--emerald-deep);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--emerald);
+  border: 1px solid var(--emerald);
+  padding: 12px 24px;
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.scan-result {
+  margin-top: 28px;
+  padding: 20px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-align: left;
+}
+
+.scan-result-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.scan-result-status.halal {
+  background: rgba(13, 61, 46, 0.1);
+  color: var(--emerald);
+}
+
+.scan-result-status.haram {
+  background: rgba(168, 50, 50, 0.1);
+  color: #a83232;
+}
+
+.scan-result-status.mushbooh {
+  background: rgba(176, 141, 71, 0.15);
+  color: var(--gold-deep);
+}
+
+.scan-result-product {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.scan-result-flag {
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 8px 0;
+  border-top: 1px solid var(--rule);
+  margin-top: 12px;
+}
+
+.scan-disclaimer {
+  font-size: 11px;
+  color: var(--ink-faint);
+  line-height: 1.6;
+  margin-top: 20px;
+  padding: 14px;
+  border-left: 2px solid var(--gold);
+  background: rgba(176, 141, 71, 0.05);
+}
+
+/* ===================== Settings ===================== */
+
+.setting-group {
+  margin-bottom: 24px;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--ink);
+}
+
+.setting-desc {
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+.setting-select {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+}
+
+/* ===================== Loading & errors ===================== */
+
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--ink-faint);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.loading-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin: 0 3px;
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+.error {
+  padding: 16px;
+  background: rgba(168, 50, 50, 0.05);
+  border: 1px solid rgba(168, 50, 50, 0.2);
+  border-radius: 4px;
+  color: #a83232;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ===================== Misc ===================== */
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  color: var(--gold);
+  font-size: 20px;
+  letter-spacing: 0.5em;
+}
+
+.location-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+  margin-bottom: 18px;
+}
+
+.location-bar button {
+  color: var(--gold-deep);
+  text-decoration: underline;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
